@@ -1,3 +1,5 @@
+
+/* rtl:begin:ignore */
 .popover {
   position: absolute;
   top: 0;
@@ -55,7 +57,7 @@
   }
 }
 
-.bs-popover-right {
+.bs-popover-end {
   margin-left: $popover-arrow-height;
 
   > .popover-arrow {
@@ -110,7 +112,7 @@
   }
 }
 
-.bs-popover-left {
+.bs-popover-start {
   margin-right: $popover-arrow-height;
 
   > .popover-arrow {
@@ -138,16 +140,17 @@
     @extend .bs-popover-top;
   }
   &[x-placement^="right"] {
-    @extend .bs-popover-right;
+    @extend .bs-popover-end;
   }
   &[x-placement^="bottom"] {
     @extend .bs-popover-bottom;
   }
   &[x-placement^="left"] {
-    @extend .bs-popover-left;
+    @extend .bs-popover-start;
   }
 }
 
+/* rtl:end:ignore */
 
 // Offset the popover to account for the popover arrow
 .popover-header {
