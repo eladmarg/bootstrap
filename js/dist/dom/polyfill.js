@@ -6,7 +6,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.Polyfill = {}));
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Polyfill = {}));
 }(this, (function (exports) { 'use strict';
 
   /**
@@ -30,6 +30,8 @@
 
     return prefix;
   };
+
+  var isRTL = document.documentElement.dir === 'rtl';
 
   /* istanbul ignore file */
   exports.find = Element.prototype.querySelectorAll;

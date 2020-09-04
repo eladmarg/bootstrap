@@ -6,7 +6,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./polyfill.js')) :
   typeof define === 'function' && define.amd ? define(['./polyfill.js'], factory) :
-  (global = global || self, global.EventHandler = factory(global.Polyfill));
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.EventHandler = factory(global.Polyfill));
 }(this, (function (polyfill_js) { 'use strict';
 
   /**
@@ -26,6 +26,8 @@
 
     return null;
   };
+
+  var isRTL = document.documentElement.dir === 'rtl';
 
   /**
    * --------------------------------------------------------------------------
@@ -70,6 +72,8 @@
 
   function bootstrapHandler(element, fn) {
     return function handler(event) {
+      event.delegateTarget = element;
+
       if (handler.oneOff) {
         EventHandler.off(element, event.type, fn);
       }
@@ -85,6 +89,8 @@
       for (var target = event.target; target && target !== this; target = target.parentNode) {
         for (var i = domElements.length; i--;) {
           if (domElements[i] === target) {
+            event.delegateTarget = target;
+
             if (handler.oneOff) {
               EventHandler.off(element, event.type, fn);
             }
@@ -269,7 +275,7 @@
           bubbles: bubbles,
           cancelable: true
         });
-      } // merge custom informations in our event
+      } // merge custom information in our event
 
 
       if (typeof args !== 'undefined') {
